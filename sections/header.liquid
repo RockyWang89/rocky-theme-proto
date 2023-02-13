@@ -1,0 +1,45 @@
+<header class="header">
+  <h1>{{ shop.name }}</h1>
+  <ul>
+    {% for link in linklists.main-menu.links -%}
+      <li>{{ link.title | link_to: link.url }}</li>
+    {%- endfor %}
+  </ul>
+  {% if settings.show_search %}
+    <form action="/search">
+      <input type="search" name="q" />
+      <button type="submit">Search</button>
+    </form>
+  {% endif %}
+</header>
+
+{% comment %} This is inline style, it will overwrite the external style {% endcomment %}
+<style>
+    .header {
+        background-color: {{section.settings.bg}};
+    }
+</style>
+
+{% comment %} This will be loaded to the head of the theme file {% endcomment %}
+{% style %}
+  .header {
+    padding: 20px;
+  }
+{% endstyle %}
+
+{% javascript %}
+    console.log('Hey, this is from header');
+{% endjavascript %}
+
+{% schema %}
+  {
+    "name": "Header",
+    "settings": [
+      {
+        "type": "color",
+        "id": "bg",
+        "label": "Background Color"
+      }
+    ]
+  }
+{% endschema %}
